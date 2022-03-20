@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>List Products</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <a th:href="@{/product/createProduct}" type="link" class="btn btn-primary">Create Product</a>
+    </div>
+    <div class="row">
+        <div th:each="product: ${listProducts}"
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="Your Product Picture">
+            <div class="card-body">
+            <h5 class="card-title" th:text="${product.name}">Product title</h5>
+            <p class="card-text" th:text="${product.description}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a th:href="@{'/product/edit/' + ${product.id}}" class="btn btn-primary">Edit Product</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
