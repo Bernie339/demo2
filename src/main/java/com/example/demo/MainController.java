@@ -2,7 +2,10 @@ package com.example.demo;
 
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,22 +46,38 @@ public class MainController {
   }
   
   @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("errorMsg", "Your username and password are invalid.");
+  public String login(Model model, String error, String logout) {
+      if (error != null)
+          model.addAttribute("errorMsg", "Your username and password are invalid.");
 
-        if (logout != null)
-            model.addAttribute("msg", "You have been logged out successfully.");
+      if (logout != null)
+          model.addAttribute("msg", "You have been logged out successfully.");
 
+      return "login";
+  }
+
+  @GetMapping("/mySite")
+  public String mysite(
+    @AuthenticationPrincipal CustomUserDetails userDetails, Model model){
+      if(userDetails == null){
         return "login";
-    }
+      }
+    String userEmail = userDetails.getUsername();
+    User user = userRepo.findByEmail(userEmail);
 
-    @PostMapping("/process_register")
-    public String processRegister(User user) {
-      service.registerDefaultUser(user);
-      
-      return "register_success";
-    }
+    model.addAttribute("user", user);
+    model.addAttribute("pageTitle", "Account Details");  
+
+    return "mySite";
+  }
+  
+
+  @PostMapping("/process_register")
+  public String processRegister(User user) {
+    service.registerDefaultUser(user);
+    
+    return "register_success";
+  }
 
   @GetMapping("/users")
   public String listUsers(Model model) {

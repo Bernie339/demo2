@@ -35,6 +35,10 @@ public class UserService {
 		return userRepo.findById(id).get();
 	}
 
+	public User getByEmail(String email){
+		return userRepo.findByEmail(email);
+	}
+
 	public Product get(Integer id) {
 		return productRepo.findById(id).get();
 	}
