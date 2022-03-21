@@ -68,10 +68,11 @@ public class UserService {
 		orderRepo.save(order);
 	}
 	
-	public void createProduct(String name, String description){
+	public void createProduct(String name, String description, Float price){
 		Product product = new Product();
 		product.setName(name);
 		product.setDescription(description);
+		product.setPrice(price);
 
 		productRepo.save(product);
 	}	
