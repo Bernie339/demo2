@@ -108,6 +108,8 @@ public class MainController {
     List<User> listUsers = service.listAll();
       model.addAttribute("listUsers", listUsers);
       model.addAttribute("count", userRepo.count());
+      model.addAttribute("countOrders", orderRepo.count());
+      model.addAttribute("countProducts", productRepo.count());
 
     return "dashboard";
   }
