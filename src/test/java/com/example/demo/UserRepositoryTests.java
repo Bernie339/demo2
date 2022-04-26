@@ -1,7 +1,12 @@
 package com.example.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
- 
+
+import com.example.demo.Roles.Role;
+import com.example.demo.Roles.RoleRepository;
+import com.example.demo.User.User;
+import com.example.demo.User.UserRepository;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,11 +1,14 @@
-package com.example.demo;
+package com.example.demo.CompanyOrder;
 
 import java.util.*;
 
 import javax.persistence.*;
 
+import com.example.demo.Company.Company;
+import com.example.demo.Product.Product;
+
 @Entity
-@Table(name = "orders")
+@Table(name = "company_orders")
 public class Order {
     
     @Id
@@ -16,15 +19,16 @@ public class Order {
 
     @ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "orders_products",
-			joinColumns = @JoinColumn(name = "order_id"),
+			name = "company_orders_products",
+			joinColumns = @JoinColumn(name = "company_order_id"),
 			inverseJoinColumns = @JoinColumn(name = "product_id")
 	)
 	private Set<Product> products = new HashSet<>();
     
+        
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 
     public Long getId(){
         return id;
@@ -45,14 +49,15 @@ public class Order {
     }
     public void setProducts(Set<Product> products){
         this.products = products;
+    }      
+
+    public Company getCompany(){
+        return company;
     }
 
-    public User getUser(){
-        return user;
+    public void setCompany(Company company){
+        this.company = company;
     }
-    public void setUser(User user){
-        this.user = user;
-    }   
 
     @Override
     public String toString(){

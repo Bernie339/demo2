@@ -57,12 +57,14 @@
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
-                        <th>Your Orders</th>                        
+                        <th>Your Orders</th>   
+                        <th></th>                     
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="order: ${user.orders}">                        
                         <td th:text="${order.orderNumber}">E-mail</td>
+                        <td><a th:href="@{'/orders/edit/' + ${order.id}}">Show Order</a></td>
                     </tr>
                 </tbody>
             </table>

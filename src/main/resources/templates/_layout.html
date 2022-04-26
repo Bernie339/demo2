@@ -59,7 +59,7 @@
                 <li class="nav-item">
                     <a th:href="@{/mySite}" class="nav-link text-white " aria-current="page">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#mySite"></use></svg>
-                    My Site (Debug)
+                    My Site
                     </a>
                 </li>
                 <li>
@@ -76,6 +76,16 @@
                         </a>
                     </li>
                 </div>
+
+                <div sec:authorize="hasAnyAuthority('Admin')">
+                    <li>
+                        <a th:href="@{/companies}" class="nav-link text-white">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#companies"></use></svg>
+                        Companies
+                        </a>
+                    </li>
+                </div>
+
                 <li>
                     <a th:href="@{/products}" class="nav-link text-white">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>

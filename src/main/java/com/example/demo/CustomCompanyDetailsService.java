@@ -1,25 +1,25 @@
 package com.example.demo;
 
-import com.example.demo.User.User;
-import com.example.demo.User.UserRepository;
+import com.example.demo.Company.Company;
+import com.example.demo.Company.CompanyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
  
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomCompanyDetailsService implements UserDetailsService {
  
     @Autowired
-	private UserRepository userRepo;
+	private CompanyRepository companyRepo;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepo.findByEmail(username);
-		if (user == null) {
-			throw new UsernameNotFoundException("User not found");
+		Company company = companyRepo.findByEmail(username);
+		if (company == null) {
+			throw new UsernameNotFoundException("Company not found");
 		}
-		return new CustomUserDetails(user);
+		return new CustomCompanyDetails(company);
 	}  
  
 }

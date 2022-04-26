@@ -4,8 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  
 import java.util.List;
 
-import com.example.demo.Roles.Role;
-import com.example.demo.Roles.RoleRepository;
+import com.example.demo.Country.Country;
+import com.example.demo.Country.CountryRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +13,26 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
- 
+
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class RoleRepositoryTests {
- 
-    @Autowired private RoleRepository repo;
+public class CountryRepositoryTests {
+
+    @Autowired private CountryRepository repo;
      
     @Test
-    public void testCreateRoles() {
-        Role user = new Role("User");
-        Role admin = new Role("Admin");
-        Role customer = new Role("Customer");
-        Role company = new Role("Company");
+    public void testCreateCountries() {
+        Country aut = new Country("Österreich");
+        Country de = new Country("Deutschland");
+        
          
-        repo.saveAll(List.of(user, admin, customer, company));
+        repo.saveAll(List.of(aut, de));
          
-        List<Role> listRoles = repo.findAll();
+        List<Country> listCountries = repo.findAll();
          
-        assertThat(listRoles.size()).isEqualTo(4);
+        assertThat(listCountries.size()).isEqualTo(2);
     }
-     
+    
 }

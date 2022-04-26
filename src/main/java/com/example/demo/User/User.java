@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.User;
 
 import java.util.*;
 import javax.persistence.Entity;
@@ -8,8 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.example.demo.Company.Company;
+import com.example.demo.Roles.Role;
+import javax.persistence.*;
+
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 
@@ -33,16 +37,25 @@ public class User {
 	@Column(name = "last_name", nullable = false, length = 20)
 	private String lastName;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private Set<Role> roles = new HashSet<>();
+	
+	
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")	
-	private Set<Order> orders;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_company_id", nullable = false)
+    private Company company;
+
+	@Column(name= "isCompany", nullable = false)
+    private Boolean isCompany = false;
+
+	
 	
 	public Long getId() {
 		return id;
@@ -96,10 +109,13 @@ public class User {
 		this.roles.add(role);
 	}
 
-	public Set<Order> getOrders(){
-		return orders;
+	public Company getCompany(){
+		return company;
 	}
-	public void setOrders(Set<Order> orders){
-		this.orders = orders;
+
+	public void setCompany(Company company){
+		this.company = company;
 	}
+
+		
 }

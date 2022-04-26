@@ -5,24 +5,24 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import com.example.demo.Company.Company;
 import com.example.demo.Roles.Role;
-import com.example.demo.User.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
  
-public class CustomUserDetails implements UserDetails {
+public class CustomCompanyDetails implements UserDetails {
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Company company;
 	
-	public CustomUserDetails(User user) {
-		this.user = user;
+	public CustomCompanyDetails(Company company) {
+		this.company = company;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = user.getRoles();
+        Set<Role> roles = company.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
          
         for (Role role : roles) {
@@ -34,12 +34,12 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return company.getPassword();
 	}		
 
 	@Override
 	public String getUsername() {
-		return user.getEmail();
+		return company.getEmail();
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class CustomUserDetails implements UserDetails {
 	}
 	
 	public String getFullName() {
-		return user.getFirstName() + " " + user.getLastName();
+		return company.getFirstName() + " " + company.getLastName();
 	}
 
 }

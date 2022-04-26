@@ -29,18 +29,21 @@
                     </div> 
                 </th:block>              
               </div>
-            </fieldset>
+            </fieldset>             
             <fieldset class="row mb-3">
-                <legend class="col-form-label col-sm-2 pt-0">Select User</legend>
-                <div class="col-sm-10">
-                  <th:block th:each="user: ${listUsers}">
-                      <div class="form-check">
-                      <input class="form-check-input" type="radio" name="gridRadios" th:field="*{user}" th:text="${user.firstName}" th:value="${user.id}" id="gridRadios1">
-                      <label class="form-check-label" for="gridRadios1" th:text="${user.lastName}"></label>
-                      </div> 
-                  </th:block>              
-                </div>
-              </fieldset>            
+              <legend class="col-form-label col-sm-2 pt-0">Select Company</legend>
+              <div class="col-sm-10">
+                <div class="form-group row">
+                  <div class="col-8">                       
+                      <select th:field="*{company}" class="form-control">
+                          <option th:each="company : ${listCompanies}"
+                                  th:text="${company.name}"
+                                  th:value="${company.id}">
+                      </select>                        
+                  </div>
+              </div>              
+              </div>
+          </fieldset>          
             <button type="submit" class="btn btn-primary">Create Order</button>
           </form>
     </div>

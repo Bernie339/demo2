@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Welcome to Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div sec:authorize="hasAnyAuthority('Admin', 'User')">
+
+            <form th:action="@{/orders/save}" th:object="${order}"
+                method="post" style="max-width: 600px; margin: 0 auto;">
+                <input type="hidden" th:field="*{id}" />
+            <div class="m-3">
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Order Number </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{orderNumber}" class="form-control" required readonly />
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Company </label>
+                    <div class="col-8">
+                        <input type="text" th:field="*{company}" class="form-control" readonly/>
+                    </div>
+                </div>               
+                               
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Products: </label>
+                    <div class="col-8">
+                        <th:block th:each="product: ${listProducts}">
+                            <div class="form-check">
+                                <input class="form-check-input" readonly type="checkbox" name="gridRadios" th:field="*{products}" th:text="${product.name}" th:value="${product.id}" id="gridRadios1">
+                                <label class="form-check-label" readonly for="gridRadios1"></label>
+                            </div> 
+                        </th:block>
+                    </div>
+                </div>                         
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

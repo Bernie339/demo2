@@ -1,6 +1,9 @@
-package com.example.demo;
+package com.example.demo.User;
 
 import java.util.List;
+
+import com.example.demo.Roles.Role;
+import com.example.demo.Roles.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,16 +19,13 @@ public class UserService {
 	
 	@Autowired PasswordEncoder passwordEncoder;
 
-	@Autowired OrderRepository orderRepo;
-
-	@Autowired ProductRepository productRepo;
 	
 	public void registerDefaultUser(User user) {
 		Role roleUser = roleRepo.findByName("User");
 		user.addRole(roleUser);
 		encodePassword(user);
 		userRepo.save(user);
-	}	
+	}		
 	
 	public List<User> listAll() {
 		return userRepo.findAll();
@@ -37,23 +37,7 @@ public class UserService {
 
 	public User getByEmail(String email){
 		return userRepo.findByEmail(email);
-	}
-
-	public Product get(Integer id) {
-		return productRepo.findById(id).get();
-	}
-	
-	public List<Role> listRoles() {
-		return roleRepo.findAll();
-	}
-
-	public List<Order> listOrders(){
-		return orderRepo.findAll();
 	}		
-
-	public List<Product> listProducts(){
-		return productRepo.findAll();
-	}
 	
 	public void save(User user) {
 		encodePassword(user);		
@@ -62,24 +46,7 @@ public class UserService {
 
 	public void deleteUser(User user){
 		userRepo.delete(user);
-	}
-
-	public void save(Product product) {
-		productRepo.save(product);
-	} 
-
-	public void save(Order order){
-		orderRepo.save(order);
-	}
-	
-	public void createProduct(String name, String description, Float price){
-		Product product = new Product();
-		product.setName(name);
-		product.setDescription(description);
-		product.setPrice(price);
-
-		productRepo.save(product);
-	}	
+	}		
 	
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());

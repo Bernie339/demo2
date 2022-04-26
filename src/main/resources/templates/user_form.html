@@ -47,6 +47,17 @@
                                 required minlength="2" maxlength="20" />
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Company: </label>
+                    <div class="col-8">                       
+                        <select th:field="*{company}" class="form-control">
+                            <option th:each="company : ${listCompanies}"
+                                    th:text="${company.name}"
+                                    th:value="${company.id}">
+                        </select>                        
+                    </div>
+                </div>
                 
                 <div class="form-group row">
                     <label class="col-4 col-form-label">Roles: </label>
@@ -56,17 +67,7 @@
                             th:text="${role.name}" th:value="${role.id}" class="m-2" />
                         </th:block>
                     </div>
-                </div>  
-
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Orders: </label>
-                    <div class="col-8">
-                        <th:block th:each="order: ${listOrders}">
-                        <input type="text" th:field="*{order}"
-                            th:text="${order.id}" th:value="${order.id}" class="m-2" />                            
-                        </th:block>
-                    </div>
-                </div>       
+                </div>                      
                 
                 <div>
                     <button type="submit" class="btn btn-primary">Update</button>
